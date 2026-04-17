@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本地日志条件组合查询工具</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">轻量级本地离线工具</p>
+        <h1>本地日志条件组合查询工具</h1>
+        <p class="hero-text">纯前端运行，不依赖后端、不依赖数据库，支持超大日志文件的多条件 AND 查询。</p>
+      </div>
+      <a class="button secondary" href="./samples/sample.log" download>下载示例日志</a>
+    </header>
+
+    <main class="page-grid">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>文件选择</h2>
+            <p>支持按钮选择和拖拽打开，推荐 UTF-8 编码的 <code>.log</code> / <code>.txt</code> 文件。</p>
+          </div>
+        </div>
+
+        <div class="file-actions">
+          <label class="button primary" for="fileInput">选择日志文件</label>
+          <input id="fileInput" type="file" accept=".log,.txt,text/plain" hidden>
+        </div>
+
+        <div id="dropZone" class="drop-zone">
+          <strong>拖拽文件到这里</strong>
+          <span>浏览器会使用本地 File API 读取，不会上传到服务端。</span>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-card">
+            <span class="meta-label">当前文件</span>
+            <strong id="fileName">未选择文件</strong>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">文件大小</span>
+            <strong id="fileSize">-</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>查询条件</h2>
+            <p>查询语义固定为 <strong>全部满足（AND）</strong>，空条件会自动忽略并去重。</p>
+          </div>
+          <button id="addConditionButton" class="button secondary" type="button">新增条件</button>
+        </div>
+
+        <div id="conditionList" class="condition-list"></div>
+
+        <div class="option-row">
+          <label class="checkbox">
+            <input id="caseSensitiveCheckbox" type="checkbox">
+            <span>区分大小写（默认关闭，当前实现已预留开关）</span>
+          </label>
+          <label class="field-inline" for="encodingSelect">
+            <span>文件编码</span>
+            <select id="encodingSelect" class="select-input">
+              <option value="utf-8">UTF-8</option>
+              <option value="gb18030">GB18030 / GBK</option>
+            </select>
+          </label>
+        </div>
+        <p class="option-tip">如果英文条件能搜到、中文条件搜不到，通常是日志文件不是 UTF-8，可切换为 GB18030 / GBK 后重试。</p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>操作与状态</h2>
+            <p>搜索过程在 Worker 中执行，主线程只负责界面更新和虚拟列表渲染。</p>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button id="searchButton" class="button primary" type="button">开始搜索</button>
+          <button id="cancelButton" class="button danger" type="button" disabled>取消搜索</button>
+          <button id="clearButton" class="button secondary" type="button">清空条件</button>
+        </div>
+
+        <div class="status-grid">
+          <div class="meta-card">
+            <span class="meta-label">搜索进度</span>
+            <strong id="progressText">未开始</strong>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">搜索耗时</span>
+            <strong id="elapsedText">0 ms</strong>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">命中条数</span>
+            <strong id="hitCountText">0</strong>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">已扫描行数</span>
+            <strong id="lineCountText">0</strong>
+          </div>
+        </div>
+
+        <div class="progress-track" aria-hidden="true">
+          <div id="progressBar" class="progress-fill"></div>
+        </div>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="panel-head">
+          <div>
+            <h2>搜索结果</h2>
+            <p id="resultHint">仅渲染可视区域附近的少量结果，点击结果可定位到原始日志对应行。</p>
+          </div>
+        </div>
+
+        <div id="resultViewport" class="result-viewport">
+          <div id="resultSpacer" class="result-spacer"></div>
+          <div id="resultContent" class="result-content"></div>
+          <div id="emptyState" class="empty-state">请选择文件并输入条件后开始搜索。</div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="panel-head preview-head">
+            <div>
+              <h3>原文定位</h3>
+              <p id="previewHint">点击上方搜索结果后，在这里查看对应行附近的日志内容。</p>
+            </div>
+          </div>
+
+          <div id="previewViewport" class="preview-viewport">
+            <div id="previewContent" class="preview-content"></div>
+            <div id="previewEmptyState" class="empty-state preview-empty">点击搜索结果后，可定位到对应行并查看上下文。</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
