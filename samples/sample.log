@@ -1,6 +1,6 @@
-2026-04-17 15:42:35 | INFO  | main | com.mixchains.ytboot.Application | 应用启动中
-2026-04-17 15:42:36 | INFO  | main | com.mixchains.ytboot.common.mq.dynamic.DynamicRabbitManager | 初始化动态交换机 [etetet.topic]
-2026-04-17 15:42:37 | WARN  | main | com.mixchains.ytboot.common.mq.dynamic.DynamicRabbitManager | 绑定队列 [other.chat.room.created] 到 Exchange [other.direct]，Key: other.chat.room.created.key
-2026-04-17 15:42:39 | INFO  | main | com.mixchains.ytboot.common.mq.dynamic.DynamicRabbitManager | 绑定队列 [etetet.chat.seating_friend.event_notify] 到 Exchange [etetet.topic]，Key: etetet.chat.seating_friend.event_notify.key
-2026-04-17 15:42:41 | INFO  | main | com.mixchains.ytboot.service.NotificationService | 已发送事件通知到 etetet.topic，消息体长度 128
-2026-04-17 15:42:43 | ERROR | main | com.mixchains.ytboot.service.NotificationService | 发送失败，原因：路由键不存在
+2026-04-17 15:42:35 | INFO  | main | com.****.ytboot.Application | 应用启动中
+2026-04-17 15:42:36 | INFO  | main | com.****.ytboot.common.mq.dynamic.DynamicRabbitManager | 初始化动态交换机 [****.topic]
+2026-04-17 15:42:37 | WARN  | main | com.****.ytboot.common.mq.dynamic.DynamicRabbitManager | 绑定队列 [other.chat.****.created] 到 Exchange [other.****]，Key: other.chat.****.created.key
+2026-04-17 15:42:39 | INFO  | main | com.****.ytboot.common.mq.dynamic.DynamicRabbitManager | 绑定队列 [****.chat.****.event_notify] 到 Exchange [****.topic]，Key: ****.chat.****.event_notify.key
+2026-04-17 15:42:41 | INFO  | main | com.****.ytboot.service.NotificationService | 已发送事件通知到 ****.topic，消息体长度 128
+2026-04-17 15:42:43 | ERROR | main | com.****.ytboot.service.NotificationService | 发送失败，原因：路由键不存在

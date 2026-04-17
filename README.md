@@ -11,7 +11,7 @@
 
 ![界面总览](docs/screenshots/search-finished.png)
 
-> 上图为当前版本真实界面截图，基于仓库内置示例日志拍摄。
+> 上图为当前版本真实界面截图，基于仓库内置示例日志拍摄，截图与示例日志内容均已做脱敏处理。
 
 ## 这个工具适合什么时候打开
 
@@ -73,7 +73,7 @@ http://127.0.0.1:8080
 例如你想确认下面两个条件是否同时出现：
 
 - `绑定队列`
-- `etetet.topic`
+- `****.topic`
 
 只要原始日志行同时包含这两个条件，就会被命中并高亮显示。
 
@@ -108,7 +108,7 @@ samples/sample.log
 其中包含这条示例日志：
 
 ```text
-2026-04-17 15:42:39 | INFO  | main | com.mixchains.ytboot.common.mq.dynamic.DynamicRabbitManager | 绑定队列 [etetet.chat.seating_friend.event_notify] 到 Exchange [etetet.topic]，Key: etetet.chat.seating_friend.event_notify.key
+2026-04-17 15:42:39 | INFO  | main | com.****.ytboot.common.mq.dynamic.DynamicRabbitManager | 绑定队列 [****.chat.****.event_notify] 到 Exchange [****.topic]，Key: ****.chat.****.event_notify.key
 ```
 
 ## 常见问题
@@ -168,7 +168,7 @@ log-search/
 
 1. 打开 `index.html`
 2. 选择 `samples/sample.log`
-3. 输入 `绑定队列` 和 `etetet.topic`
+3. 输入 `绑定队列` 和 `****.topic`
 4. 点击“开始搜索”
 5. 确认至少命中 1 条，并可点击结果查看上下文
 6. 切换为单条件后再次搜索，确认结果数增加
