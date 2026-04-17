@@ -1,6 +1,7 @@
 # 本地日志条件组合查询工具
 
 一个纯前端、可离线运行的本地日志搜索小工具，目标是用尽量少的技术栈完成“大文件多条件 AND 查询”。项目不依赖后端服务、不依赖数据库、不依赖 Elasticsearch / Lucene / Solr / Electron / Spring Boot，也不需要构建步骤。
+![Uploading image.png…]()
 
 ## 目录结构
 
